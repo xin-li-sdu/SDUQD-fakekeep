@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>Keep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div data-cid="slbpyxazvellbq4cm6mk7lcl5" class="tree-node">
+        <div data-cid="canvasDiv" class="tree-node group"
+            style="position: absolute; top: 0px; left: 0px; z-index: 17; opacity: 1; transform-origin: 46.5px 28px;">
+            <div data-cid="controlImage" class="tree-node"
+                style="position: absolute; top: 0px; left: 1400px; width: 300px;">
+                <label for="strokeColorSelect">画笔颜色:</label>
+                <select id="strokeColorSelect">
+                    <option value="#32def8">快</option>
+                    <option value="#45d4d1">稍快</option>
+                    <option value="#27c291">中</option>
+                    <option value="#868f6f">稍慢</option>
+                    <option value="#f34f50">慢</option>
+                </select>
+
+                <br><br>
+                <label for="strokeLineWidth">线条宽度(18最佳)</label>
+                <br><input type="number" id="strokeLineWidth">
+
+                <br><br>
+                <label for="getDelta">线条绘制变化幅度(15-25):</label>
+                <br><input type="text" value="20" id="getDelta">
+                <button onclick="changeDelta()">更新</button>
+
+
+                <br><br><br>
+                <font color="#FF0000">请先绘制好路径再填写下面内容</font>
+                <br><strong>图片设置(括号内为原始数据):</strong>
+                <br>
+                <font color="#FF0000">记得点更新！！！</font>
+
+                <br><br>
+                <label for="getName">名字后缀(超有趣的_Keeper????):</label>
+                <br><input type="text" value="18dt" id="getName">
+                <button onclick="showUName()">更新</button>
+
+                <br><br>
+                <label for="getDate">日期(2022/09/22 20:44):</label>
+                <br><input type="text" value="2022/09/22 20:44" id="getDate">
+                <button onclick="showDate()">更新</button>
+
+                <br><br>
+                <label for="getDistance">距离(3.09):</label>
+                <br><input type="text" value="3.09" id="getDistance">
+                <button onclick="showDistance()">更新</button>
+
+                <br><br>
+                <label for="getTem">温度(21):</label>
+                <br><input type="text" value="21" id="getTem">
+                <button onclick="showTem()">更新</button>
+
+                <br><br>
+                <label for="getWtr">湿度(62):</label>
+                <br><input type="text" value="62" id="getWtr">
+                <button onclick="showWtr()">更新</button>
+
+                <br><br>
+                <label for="getAvgSpd">平均配速(08'51"):</label>
+                <br><input type="text" value="08'51&quot" id="getAvgSpd">
+                <button onclick="showAvgSpd()">更新</button>
+
+                <br><br>
+                <label for="getTime">用时(00:27:28):</label>
+                <br><input type="text" value="00:27:28" id="getTime">
+                <button onclick="showTime()">更新</button>
+
+                <br><br>
+                <label for="getHot">千卡(223)大约为距离(km)乘以体重(kg):</label>
+                <br><input type="text" value="223" id="getHot">
+                <button onclick="showHot()">更新</button>
+
+                <br><br><br><br><br><br>
+                <font color="#FF0000">请务必检查好上面8项是否正确!!!</font>
+                <br> 然后启用浏览器的缩放界面功能(例如Ctrl+滑轮)来<strong>截图</strong>。
+            </div>
+
+            <div data-cid="wayPoint" class="tree-node">
+                <div class="wrapper">
+                    <img class="img" src="./green.png" draggable="false" id="pointImgGreen"
+                        style="position: absolute; top: 0px; left: 0px; top: 500px; left: 1000px;" alt="green">
+                    <img class="img" src="./red.png" draggable="false" id="pointImgRed"
+                        style="position: absolute; top: 0px; left: 0px; top: 300px; left: 1000px;" alt="red">
+
+                </div>
+            </div>
+
+            <div data-cid="mainCanvas" class="tree-node">
+                <canvas id="myCanvas" class="myCanvas" width="1200px" height="1200px">
+                    您的浏览器不支持canvas
+                </canvas>
+            </div>
+        </div>
+        <div data-cid="displayScene" class="tree-node group">
+            <div data-cid="originImage" class="tree-node"
+                style="position: absolute; top: 0px; left: 0px; z-index: 1; opacity: 1; transform-origin: 600px 1262.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 1200px; height: 2525px;">
+                    <div class="widget image_view undefined"
+                        style="width: 1200px; height: 2525px; border-width: 0px; border-style: none; border-color: unset; box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 6px 0px; font-weight: normal; font-style: normal;">
+                        <div class="style__StyledImageWrapper-sc-urqge1-0 iZTmWB image-wrapper"
+                            style="overflow: hidden; border-radius: 0px; box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 6px 0px;">
+                            <span style="display: none; background-color: transparent;"><svg
+                                    class="Icon__StyledSVGIcon-sc-17rwnqw-0 kwZSXH icon toolbar/image svg-icon"
+                                    viewBox="0 0 32 32" style="width: 24px; height: 22px;">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M23 10H10v12h13V10zM10 8a2 2 0 00-2 2v12a2 2 0 002 2h13a2 2 0 002-2V10a2 2 0 00-2-2H10z"
+                                        fill="#333"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M17.216 16.327a2 2 0 012.538-.152l4.834 3.516-1.176 1.618-4.835-3.516-6.397 5.94-1.36-1.466 6.396-5.94z"
+                                        fill="#333"></path>
+                                    <path d="M15 13.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" fill="#333"></path>
+                                </svg></span>
+                            <div class="wrapper" style="top: 0px; left: 0px; width: 1200px; height: 2525px; ">
+                                <img class="img" src="./origin.jpg" draggable="false"
+                                    style="display: block; width: 1200px; height: 2525px;" alt="bkgrd">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpz33qnw3lbq4cm6m0hstna" class="tree-node"
+                style="position: absolute; top: 1654px; left: 98px; z-index: 2; opacity: 1; transform-origin: 100px 50px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 200px; height: 100px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 200px;height: 100px;border-style: none;border-color: unset;font-size: 14px;padding: 0px;text-align: center;line-height: 20px;font-weight: normal;font-style: normal;background: rgb(255, 255, 255);">
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpz3oxj0ylbq4cm6mv7oqw0" class="tree-node"
+                style="position: absolute; top: 1654px; left: 450px; z-index: 3; opacity: 1; transform-origin: 150px 50px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 300px; height: 100px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 300px;height: 100px;border-style: none;border-color: unset;font-size: 14px;padding: 0px;text-align: center;line-height: 20px;font-weight: normal;font-style: normal;background: rgb(255, 255, 255);">
+                        <div class="text">
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpz3vnyyulbq4cm6m6uwdop" class="tree-node"
+                style="position: absolute; top: 1654px; left: 941px; z-index: 4; opacity: 1; transform-origin: 100px 50px;">
+                <div style="position: absolute;left: 0px;top: 0px;width: 200px;height: 100px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 200px;height: 100px;border-style: none;border-color: unset;font-size: 14px;padding: 0px;text-align: center;line-height: 20px;font-weight: normal;font-style: normal;background: rgb(255, 255, 255);">
+                        <div class="text">
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpyzkp1tilbq4cm6mj4dha5" class="tree-node"
+                style="position: absolute;top: 1655px;left: 101px;z-index: 5;opacity: 1;transform-origin: 88.5px 52.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 177px; height: 105px;">
+                    <div class="widget rich_text undefined hleft vtop "
+                        style="width: 250px;height: 105px;font-size: 14px;text-align: left;font-weight: normal;font-style: normal;">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    id="kpAvgSpd"
+                                    style="font-family: KeepDisplay;font-weight:400;font-size:72px;color: rgb(87, 79, 96);font-style:normal;letter-spacing:0px;line-height:105px;text-decoration:none;">08'51"</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpz0m1a7mlbq4cm6m6puf5c" class="tree-node"
+                style="position: absolute;top: 1655px;left: 465px;z-index: 6;opacity: 1;transform-origin: 88.5px 52.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 177px; height: 105px;">
+                    <div class="widget rich_text undefined hleft vtop auto"
+                        style="width: 177px; height: 105px; font-size: 14px; text-align: left; font-weight: normal; font-style: normal;">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    id="kpTime"
+                                    style="font-family: KeepDisplay;font-weight:400;font-size:72px;color: rgb(87, 79, 96);font-style:normal;letter-spacing:0px;line-height:105px;text-decoration:none;">00:27:28</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpz1vdk3xlbq4cm6m22439i" class="tree-node"
+                style="position: absolute;top: 1655px;left: 981px;z-index: 7;opacity: 1;transform-origin: 88.5px 52.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 177px; height: 105px;">
+                    <div class="widget rich_text undefined hleft vtop auto"
+                        style="width: 177px; height: 105px; font-size: 14px; text-align: left; font-weight: normal; font-style: normal;">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    id="kpHot"
+                                    style="font-family: KeepDisplay;font-weight:400;font-size:72px;color: rgb(87, 79, 96);font-style:normal;letter-spacing:0px;line-height:105px;text-decoration:none;">223</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzbi5wbdlbq4cm6mfwmdu4" class="tree-node"
+                style="position: absolute; top: 1421px; left: 782px; z-index: 8; opacity: 1; transform-origin: 159.5px 18.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 319px; height: 37px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 319px; height: 37px; border-style: none; border-color: unset; font-size: 14px; padding: 0px; text-align: center; line-height: 20px; font-weight: normal; font-style: normal; background: rgb(255, 255, 255);">
+                        <div class="text">
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzbvi3tnlbq4cm6m8zujuf" class="tree-node"
+                style="position: absolute; top: 1416px; left: 784px; z-index: 9; opacity: 1; transform-origin: 158.5px 23.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 330px; height: 47px;" draggable="true">
+                    <div class="widget rich_text undefined hleft vtop "
+                        style="width: 330px; height: 47px; font-size: 14px; text-align: left; font-weight: normal; font-style: normal;">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    id="kpDate"
+                                    style="font-family: Roboto; font-size:39px; color:rgba(150,150,150,1); font-style:normal; letter-spacing:0px; line-height:47px; text-decoration:none;">2022/09/22
+                                    20:44</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzergobulbq4cm6m4ou7vu" class="tree-node"
+                style="position: absolute; top: 1385px; left: 105px; z-index: 10; opacity: 1; transform-origin: 116px 53px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 232px; height: 106px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 232px;height: 106px;border-style: none;border-color: unset;font-size: 14px;padding: 0px;text-align: center;line-height: 20px;font-weight: normal;font-style: normal;background: rgb(255, 255, 255);">
+                        <div class="text">
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzf67dkqlbq4cm6mlc80n1" class="tree-node"
+                style="position: absolute;top: 1333px;left: 101px;z-index: 11;opacity: 1;transform-origin: 140px 104px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 280px; height: 208px;">
+                    <div class="widget rich_text undefined hleft vtop auto">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    id="kpDistance"
+                                    style="font-family: KeepDisplay;font-weight: 40;font-size: 130px;color: rgb(87, 79, 96);font-style:normal;letter-spacing:0px;line-height:208px;text-decoration:none;">3.09</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpziu8f00lbq4cm6m70y76o" class="tree-node"
+                style="position: absolute; top: 1492px; left: 867px; z-index: 12; opacity: 1; transform-origin: 23.5px 15.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 47px; height: 31px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 47px; height: 31px; border-style: none; border-color: unset; font-size: 14px; padding: 0px; text-align: center; line-height: 20px; font-weight: normal; font-style: normal; background: rgb(255, 255, 255);">
+                        <div class="text">
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzk68ef2lbq4cm6mj6pxmr" class="tree-node"
+                style="position: absolute; top: 1492px; left: 1025px; z-index: 13; opacity: 1; transform-origin: 22px 15.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 44px; height: 31px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 44px; height: 31px; border-style: none; border-color: unset; font-size: 14px; padding: 0px; text-align: center; line-height: 20px; font-weight: normal; font-style: normal; background: rgb(255, 255, 255);">
+                        <div class="text">
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzherurmlbq4cm6mkov90v" class="tree-node"
+                style="position: absolute; top: 1483px; left: 869px; z-index: 14; opacity: 1; transform-origin: 22.5px 24px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 45px; height: 48px;">
+                    <div class="widget rich_text undefined hleft vtop auto"
+                        style="width: 45px; height: 48px; font-size: 14px; text-align: left; font-weight: normal; font-style: normal;">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    id="kpTem"
+                                    style="font-family: Roboto; font-weight:400; font-size:40px; color:rgba(150,150,150,1); font-style:normal; letter-spacing:0px; line-height:48px; text-decoration:none;">21</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzjcqicylbq4cm6mc7lcr8" class="tree-node"
+                style="position: absolute; top: 1483px; left: 1025px; z-index: 15; opacity: 1; transform-origin: 22.5px 24px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 45px; height: 48px;">
+                    <div class="widget rich_text undefined hleft vtop auto"
+                        style="width: 45px; height: 48px; font-size: 14px; text-align: left; font-weight: normal; font-style: normal;">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    id="kpWtr"
+                                    style="font-family: Roboto; font-weight:400; font-size:40px; color:rgba(150,150,150,1); font-style:normal; letter-spacing:0px; line-height:48px; text-decoration:none;">62</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzzsgz7qlbq4cm6m446w7b" class="tree-node"
+                style="position: absolute; top: 1347px; left: 1004px; z-index: 16; opacity: 1; transform-origin: 46.5px 28px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 93px; height: 56px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 93px; height: 56px; border-style: none; border-color: unset; font-size: 14px; padding: 0px; text-align: center; line-height: 20px; font-weight: normal; font-style: normal; background: rgb(255, 255, 255);">
+                        <div class="text">
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbpzyvpb5tlbq4cm6mh913b0" class="tree-node"
+                style="position: absolute; top: 1349px; left: 1004px; z-index: 17; opacity: 1; transform-origin: 46.5px 28px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 93px; height: 56px;">
+                    <div class="widget rich_text undefined hleft vtop auto"
+                        style="width: 93px; height: 56px; font-size: 14px; text-align: left; font-weight: normal; font-style: normal;">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:5px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    id="kpName"
+                                    style="font-family: Roboto; font-weight:400; font-size:46px; color:rgba(55,55,55,1); font-style:normal; letter-spacing:0px; line-height:56px; text-decoration:none;">18dt</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-cid="glbq0ekt8p5lbq4cm6m3vjcg9" class="tree-node group"
+            style="pointer-events: none; position: absolute; top: 0px; left: 0px; z-index: 19; opacity: 1; transform-origin: 600px 599px;">
+            <div data-cid="ilbpz5pz20blbq4cm6mr4knbk" class="tree-node"
+                style="position: absolute; top: 521px; left: 392px; z-index: 1; opacity: 0.37; transform-origin: 208px 78px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 416px; height: 156px;">
+                    <div class="widget rounded_rect undefined hcenter vmiddle"
+                        style="width: 416px; height: 156px; border-style: none; border-color: unset; box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 6px 0px; border-radius: 80px; font-size: 36px; padding: 0px; text-align: center; line-height: 52px; font-weight: normal; font-style: normal; background: rgb(0, 0, 0);">
+                        <div class="text">
+                            <p><br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbq097glrilbq4cm6mweqwd9" class="tree-node"
+                style="position: absolute; top: 563px; left: 549px; z-index: 2; opacity: 1; transform-origin: 98px 35.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 196px; height: 71px;">
+                    <div class="widget rich_text undefined hleft vtop auto"
+                        style="width: 196px; height: 71px; font-size: 14px; text-align: left; font-weight: normal; font-style: normal;">
+                        <div class="rich-text">
+                            <p style="line-height:0; margin-bottom:0px;"><span class="--mb--rich-text" data-boldtype="0"
+                                    style="font-family: SourceHanSansSC; font-weight:400; font-size:48px; color:rgba(255,254,255,1); font-style:normal; letter-spacing:1px; line-height:71px; text-decoration:none;">轨迹视频</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-cid="ilbq0gs9l7tlbq4cm6mo3vj9f" class="tree-node"
+                style="position: absolute; top: 553px; left: 434px; z-index: 3; opacity: 1; transform-origin: 46.5px 46.5px;">
+                <div style="position: absolute; left: 0px; top: 0px; width: 93px; height: 93px;">
+                    <div class="widget svg_icon_path undefined"
+                        style="width: 93px; height: 93px; border-color: rgb(187, 187, 187); border-width: 0px; border-style: solid; color: rgb(16, 16, 16); font-weight: normal; font-style: normal; filter: none; background-color: transparent;">
+                        <span class="icon svg-icon-wrap svg-ze svg-ze-ze-play-circle-o-wrap"
+                            style="width: 100%; height: 100%; min-width: 93px; min-height: 93px;"><svg
+                                class="styles__StyledSVGIconPathComponent-sc-16fsqc8-0 fPsHiw svg-icon-path-icon fill"
+                                viewBox="0 0 32 32" width="93" height="93">
+                                <defs data-reactroot=""></defs>
+                                <g>
+                                    <path style="fill:rgb(255, 255, 255)"
+                                        d="M21.368 16.696l-6.577 5.262c-0.383 0.307-0.943 0.245-1.249-0.139-0.121-0.151-0.195-0.344-0.195-0.555 0 0 0 0 0 0v0-10.523c0-0.491 0.398-0.889 0.889-0.889 0 0 0 0 0 0 0.211 0 0.405 0.073 0.557 0.196l-0.002-0.001 6.577 5.262c0.383 0.307 0.445 0.866 0.139 1.249-0.042 0.052-0.087 0.097-0.137 0.137l-0.002 0.001zM16 28.444c6.873 0 12.444-5.572 12.444-12.444s-5.572-12.444-12.444-12.444c-6.873 0-12.444 5.572-12.444 12.444s5.572 12.444 12.444 12.444zM16 30.222c-7.855-0-14.222-6.368-14.222-14.222s6.367-14.222 14.222-14.222 14.222 6.367 14.222 14.222-6.367 14.222-14.222 14.222z">
+                                    </path>
+                                </g>
+                            </svg></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function changeDelta() {
+        stepDelta = parseInt(document.getElementById("getDelta").value);
+    }
+    function showUName() {
+        document.getElementById("kpName").innerHTML = document.getElementById("getName").value;
+    }
+    function showDate() {
+        document.getElementById("kpDate").innerHTML = document.getElementById("getDate").value;
+    }
+    function showDistance() {
+        document.getElementById("kpDistance").innerHTML = document.getElementById("getDistance").value;
+    }
+    function showTem() {
+        document.getElementById("kpTem").innerHTML = document.getElementById("getTem").value;
+    }
+    function showWtr() {
+        document.getElementById("kpWtr").innerHTML = document.getElementById("getWtr").value;
+    }
+    function showAvgSpd() {
+        document.getElementById("kpAvgSpd").innerHTML = document.getElementById("getAvgSpd").value;
+    }
+    function showTime() {
+        document.getElementById("kpTime").innerHTML = document.getElementById("getTime").value;
+    }
+    function showHot() {
+        document.getElementById("kpHot").innerHTML = document.getElementById("getHot").value;
+    }
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+    const strokeStyleSelect = document.getElementById('strokeColorSelect');
+    const strokeLineWidth = document.getElementById('strokeLineWidth');
+
+    let isOnOff = false;
+    let oldX = null;
+    let oldY = null;
+    let scale = 0.000032;
+    let stepAll = 1585;
+    let startPos = 951;
+    let nowCol = [1, 2, 3]
+    let rangeAll = [[94, 92, 224], [94, 92, 224], [94, 92, 224], [94, 92, 224], [94, 92, 224], [94, 92, 224], [94, 92, 224], [94, 92, 224], [94, 92, 224], [94, 92, 224], [93, 92, 224], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [93, 91, 223], [92, 91, 223], [91, 92, 223], [89, 92, 223], [87, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [86, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 92, 223], [87, 93, 223], [87, 94, 221], [86, 94, 218], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [86, 95, 216], [87, 96, 216], [90, 96, 215], [94, 98, 214], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 98, 213], [97, 99, 212], [97, 100, 209], [97, 102, 206], [97, 104, 203], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [97, 104, 202], [98, 105, 201], [98, 106, 200], [99, 106, 199], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [99, 106, 198], [100, 107, 196], [100, 108, 194], [101, 109, 193], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 192], [101, 109, 191], [101, 111, 189], [102, 113, 187], [102, 115, 184], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 115, 183], [102, 117, 181], [102, 118, 179], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 176], [102, 119, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 118, 175], [101, 119, 175], [101, 119, 174], [101, 119, 174], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [101, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 173], [102, 120, 172], [103, 122, 168], [104, 125, 165], [105, 127, 161], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 127, 160], [105, 128, 161], [106, 129, 162], [106, 129, 162], [106, 129, 162], [106, 129, 161], [106, 129, 161], [106, 129, 161], [106, 129, 161], [106, 129, 161], [106, 129, 161], [106, 129, 160], [106, 129, 160], [106, 130, 159], [106, 130, 159], [106, 130, 159], [106, 130, 159], [106, 130, 159], [106, 130, 159], [106, 130, 158], [106, 131, 158], [106, 131, 157], [106, 131, 157], [106, 131, 157], [106, 131, 157], [106, 131, 157], [106, 131, 157], [106, 131, 156], [106, 131, 156], [106, 132, 154], [106, 132, 153], [106, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 133, 151], [107, 134, 150], [106, 135, 148], [106, 136, 146], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [106, 137, 143], [107, 137, 143], [107, 138, 143], [107, 138, 144], [107, 138, 144], [107, 138, 144], [107, 138, 144], [107, 138, 144], [107, 138, 144], [107, 138, 144], [107, 138, 144], [107, 138, 144], [107, 138, 144], [107, 138, 144], [108, 138, 143], [108, 139, 141], [109, 140, 138], [109, 141, 136], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [108, 140, 134], [108, 140, 134], [108, 140, 134], [108, 140, 134], [108, 140, 134], [109, 141, 135], [109, 141, 135], [109, 141, 135], [109, 141, 135], [110, 142, 136], [110, 142, 136], [110, 142, 136], [110, 142, 136], [110, 143, 135], [111, 144, 135], [111, 144, 135], [112, 145, 135], [112, 145, 135], [112, 146, 136], [112, 145, 135], [112, 145, 135], [111, 144, 134], [111, 144, 134], [111, 144, 134], [112, 145, 135], [114, 147, 137], [115, 148, 138], [114, 147, 138], [112, 145, 135], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 134], [111, 144, 133], [112, 145, 131], [113, 146, 129], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [114, 147, 126], [115, 148, 126], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 127], [115, 148, 126], [116, 149, 123], [116, 150, 120], [116, 151, 117], [116, 151, 116], [116, 151, 116], [116, 151, 116], [116, 151, 116], [116, 151, 116], [116, 151, 116], [116, 151, 116], [116, 151, 116], [116, 151, 116], [116, 151, 116], [116, 151, 116], [117, 152, 117], [118, 153, 117], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 118], [118, 153, 117], [118, 154, 115], [117, 154, 111], [116, 154, 109], [117, 155, 108], [117, 155, 109], [117, 155, 109], [117, 155, 109], [117, 156, 109], [118, 156, 110], [118, 156, 110], [118, 156, 110], [118, 156, 110], [118, 156, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [119, 157, 110], [120, 157, 109], [120, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 157, 108], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 109], [121, 158, 108], [121, 159, 106], [121, 161, 104], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [120, 162, 102], [121, 163, 103], [121, 163, 103], [121, 163, 103], [121, 163, 103], [121, 163, 103], [122, 164, 103], [122, 164, 104], [122, 164, 103], [123, 165, 99], [123, 167, 95], [124, 168, 91], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [124, 168, 90], [125, 169, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [125, 170, 91], [126, 170, 89], [126, 170, 86], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [126, 170, 83], [127, 171, 83], [128, 173, 85], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 86], [129, 174, 84], [129, 175, 83], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 175, 81], [129, 176, 81], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 176, 82], [130, 177, 82], [130, 177, 81], [130, 177, 79], [130, 177, 78], [130, 178, 78], [130, 178, 78], [130, 178, 78], [131, 178, 79], [131, 179, 79], [131, 179, 79], [131, 179, 79], [131, 179, 79], [132, 179, 80], [132, 180, 80], [132, 180, 80], [133, 180, 80], [133, 181, 81], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 82], [134, 181, 80], [133, 182, 76], [133, 183, 70], [133, 184, 65], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 184, 64], [133, 185, 64], [133, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 185, 65], [134, 186, 65], [134, 186, 63], [134, 187, 61], [134, 187, 59], [134, 188, 58], [134, 188, 59], [135, 188, 59], [135, 188, 60], [135, 189, 60], [135, 189, 60], [135, 189, 60], [136, 189, 60], [136, 189, 61], [136, 190, 61], [136, 190, 61], [136, 190, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 61], [136, 189, 60], [136, 190, 60], [136, 190, 59], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 58], [137, 191, 59], [138, 192, 60], [138, 192, 60], [138, 192, 60], [138, 193, 60], [139, 193, 61], [139, 193, 61], [139, 193, 61], [139, 193, 61], [139, 194, 62], [140, 194, 63], [140, 194, 63], [140, 194, 63], [140, 195, 62], [140, 195, 59], [140, 196, 55], [140, 196, 51], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 51], [141, 197, 51], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 198, 52], [141, 197, 51], [140, 197, 51], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [140, 197, 50], [141, 197, 50], [143, 197, 52], [147, 198, 55], [150, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [151, 198, 56], [154, 198, 57], [156, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 57], [158, 197, 58], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 59], [159, 198, 57], [158, 197, 55], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 197, 53], [158, 198, 53], [159, 199, 55], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [160, 199, 56], [161, 199, 56], [162, 199, 56], [163, 199, 57], [163, 200, 57], [163, 200, 57], [163, 200, 57], [163, 200, 57], [163, 200, 57], [164, 200, 58], [164, 201, 59], [164, 201, 59], [164, 201, 59], [165, 201, 59], [165, 201, 59], [164, 201, 59], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [164, 200, 58], [163, 200, 57], [163, 200, 57], [163, 200, 57], [164, 200, 58], [164, 201, 59], [164, 201, 59], [164, 201, 59], [164, 201, 59], [165, 201, 59], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [165, 202, 60], [166, 202, 58], [166, 201, 56], [166, 201, 55], [166, 201, 55], [167, 201, 55], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [168, 202, 57], [168, 203, 57], [168, 203, 58], [168, 203, 58], [168, 203, 58], [168, 203, 57], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [167, 202, 56], [168, 202, 56], [169, 203, 57], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [169, 203, 58], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [170, 204, 59], [171, 204, 58], [172, 204, 57], [173, 204, 56], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [173, 204, 55], [175, 204, 56], [176, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [177, 205, 57], [178, 205, 58], [179, 206, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [179, 207, 60], [180, 206, 61], [181, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [182, 206, 61], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [183, 207, 62], [184, 207, 63], [185, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [186, 208, 64], [187, 208, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [187, 209, 65], [189, 209, 66], [190, 209, 66], [191, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [192, 209, 67], [194, 209, 66], [196, 209, 65], [197, 209, 65], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 209, 64], [198, 208, 64], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [197, 208, 63], [198, 208, 63], [200, 209, 64], [202, 210, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [201, 209, 63], [201, 208, 63], [201, 208, 63], [201, 208, 63], [201, 209, 63], [201, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 209, 64], [202, 210, 65], [202, 210, 65], [203, 210, 66], [204, 210, 66], [205, 211, 67], [206, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 67], [207, 211, 68], [207, 212, 68], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [207, 212, 69], [208, 212, 69], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 213, 70], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [208, 212, 69], [209, 213, 68], [210, 213, 67], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [211, 214, 65], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [212, 215, 66], [213, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [214, 215, 67], [215, 215, 67], [216, 216, 63], [219, 218, 61], [220, 218, 57], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 219, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [221, 218, 56], [223, 218, 55], [225, 218, 54], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [227, 218, 52], [228, 218, 53], [230, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 218, 54], [231, 219, 55], [232, 220, 56], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [233, 220, 57], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 58], [234, 221, 59], [235, 221, 59], [236, 221, 59], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [237, 221, 60], [238, 222, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 62], [239, 223, 60], [240, 223, 58], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [240, 223, 56], [241, 223, 56], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [241, 224, 57], [242, 223, 58], [244, 223, 59], [245, 223, 60], [245, 223, 59], [244, 223, 59], [244, 223, 58], [244, 223, 57], [243, 224, 56], [243, 224, 54], [243, 224, 53], [243, 224, 52], [242, 224, 52], [242, 224, 52], [242, 224, 52], [242, 225, 55], [244, 227, 60], [245, 228, 62], [244, 227, 64], [241, 225, 63], [239, 223, 63], [240, 224, 67]];
+    let delta = 0
+    let stepDelta = 20
+
+    //32, 192, 133
+    //38, 298, 191
+    //44, 224, 249
+
+    let lineColor = '#32def8';
+
+    let lineWidth = 18;
+    strokeLineWidth.value = lineWidth;
+
+    canvas.addEventListener('mousemove', draw, false);
+    canvas.addEventListener('mousedown', down, true);
+    canvas.addEventListener('mouseup', up, false);
+
+    function down(event) {
+        event.preventDefault();
+        isOnOff = true;
+        oldX = event.pageX;
+        oldY = event.pageY;
+    }
+
+    function up() {
+        isOnOff = false;
+    }
+
+    function draw(event) {
+        event.preventDefault();
+        if (isOnOff === true) {
+            let newX = event.pageX;
+            let newY = event.pageY;
+            var f = Math.random();
+            var dis = Math.max(newX - oldX, newY - oldY);
+            if (dis < 2) dis = 0.5;
+            else dis = 1;
+
+            if (f < 0.4 + delta * scale) delta = delta - Math.round(stepDelta * dis);
+            else if (f > 0.6 + delta * scale) delta = delta + Math.round(stepDelta * dis);
+
+            if (startPos + delta >= stepAll) delta -= stepDelta;
+            if (startPos + delta < 0) delta += stepDelta;
+
+            nowCol = rangeAll[startPos + delta];
+            ctx.beginPath();
+            ctx.moveTo(oldX, oldY);
+            ctx.lineTo(newX, newY);
+            ctx.strokeStyle = 'rgb(' + nowCol[2] + ', ' + nowCol[1] + ', ' + nowCol[0] + ')';
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            oldX = newX;
+            oldY = newY;
+        }
+    }
+
+    strokeStyleSelect.onchange = function () {
+        lineColor = strokeStyleSelect.value;
+    };
+
+    strokeLineWidth.oninput = function () {
+        lineWidth = strokeLineWidth.value;
+    };
+
+    const imageRed = document.getElementById("pointImgRed");
+    const imageGreen = document.getElementById("pointImgGreen");
+    imageRed.addEventListener("mousedown", imageDraggerRed);
+    imageGreen.addEventListener("mousedown", imageDraggerGreen);
+    function imageDraggerRed(divEvent) {
+        document.onmousemove = function (ev) {
+            ev.preventDefault();
+            imageRed.style.left = ev.clientX - divEvent.offsetX + "px";
+            imageRed.style.top = ev.clientY - divEvent.offsetY + "px";
+        }
+
+        imageRed.onmouseup = function () {
+            document.onmousemove = null;
+        }
+
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+    }
+    function imageDraggerGreen(divEvent) {
+        document.onmousemove = function (ev) {
+            ev.preventDefault();
+            imageGreen.style.left = ev.clientX - divEvent.offsetX + "px";
+            imageGreen.style.top = ev.clientY - divEvent.offsetY + "px";
+        }
+
+        imageGreen.onmouseup = function () {
+            document.onmousemove = null;
+        }
+
+        document.onmouseup = function () {
+            document.onmousemove = null;
+        }
+    }
+</script>
+
+</html>
